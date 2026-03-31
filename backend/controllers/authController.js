@@ -63,9 +63,10 @@ const login = async (req, res, next) => {
         message: "Please provide email and password.",
       });
     }
-    const user = await User.findOne({ email: email.toLowerCase() })
-      .select("+passwordHash")
-      .populate("houses", "name inviteCode emoji");
+    const user = await User.findOne({ email: email.toLowerCase() }).select(
+      "+passwordHash",
+    );
+    // .populate("houses", "name inviteCode emoji");
 
     if (!user) {
       return res
@@ -75,7 +76,7 @@ const login = async (req, res, next) => {
 
     const isPasswordValid = await user.comparePassword(password);
     if (!isPasswordValid) {
-      return res.status(401)({
+      return res.status(401).json({
         success: false,
         message: "Invalid email or password",
       });
