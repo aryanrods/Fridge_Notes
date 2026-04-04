@@ -28,7 +28,7 @@ const createHouse = async (req, res, next) => {
 
     //Add house to user's house array
     await User.findByIdAndUpdate(req.user._id, {
-      $push: {
+      $addToSet: {
         houses: house._id,
       },
     });
@@ -71,7 +71,7 @@ const joinHouse = async (req, res, next) => {
       });
     }
     const alreadyMember = house.members.some(
-      (memberId) => memberId.toStirng() === req.user._id.toStirng(),
+      (memberId) => memberId.toString() === req.user._id.toString(),
     );
 
     if (alreadyMember) {
@@ -84,7 +84,7 @@ const joinHouse = async (req, res, next) => {
     await house.save();
 
     await User.findByIdAndUpdate(req.user._id, {
-      $push: {
+      $addToSet: {
         houses: house._id,
       },
     });
@@ -118,10 +118,10 @@ const getHouses = async (req, res, next) => {
       houses.map(async (house) => {
         const itemCount = await GroceryItem.countDocuments({
           houseId: house._id,
-          purcahsed: false,
+          purchased: false,
         });
         const totalCount = await GroceryItem.countDocuments({
-          houseId: house_id,
+          houseId: house._id,
         });
         return {
           ...house.toObject(),
@@ -131,7 +131,28 @@ const getHouses = async (req, res, next) => {
       }),
     );
     res.json({ success: true, houses: housesWithCounts });
-  } catch {
+  } catch (error) {
+    next(error);
+  }
+};
+// @desc   Get single house details
+// @route  GET /api/houses/:id
+// @access Private (members only)
+
+const getHouseById = async (req, res, next) => {
+  try {
+    const house = await House.findById(req.params.id)
+      .populate("owner", "name email")
+      .populate("members", "name email");
+
+    if (!house) {
+      return res
+        .status(404)
+        .json({ success: false, message: "House not found " });
+    }
+
+    res.json({ success: true, house });
+  } catch (error) {
     next(error);
   }
 };
@@ -148,7 +169,7 @@ const regenerateInviteCode = async (req, res, next) => {
         .status(404)
         .json({ success: false, message: "house not found" });
     }
-    if (house.owner.toStirng() !== req.user._id.toStirng()) {
+    if (house.owner.toString() !== req.user._id.toString()) {
       return res.status(403).json({
         success: false,
         message: "Only the owner can regenerate the invite code",
@@ -195,7 +216,9 @@ const leaveHouse = async (req, res, next) => {
     });
 
     res.json({ success: true, message: "You have left the house." });
-  } catch (error) {}
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = {
