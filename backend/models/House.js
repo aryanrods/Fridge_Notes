@@ -1,12 +1,11 @@
 const mongoose = require("mongoose");
 const { nanoid } = require("nanoid");
-const { timeStamp } = require("node:console");
 
-const houseSchema = new mongooseSchema(
+const houseSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "house name is required"],
+      required: [true, "House name is required"],
       trim: true,
       minlength: [2, "House name must be at least 2 characters"],
       maxlength: [60, "House name cannot exceed 60 characters"],
@@ -38,15 +37,14 @@ const houseSchema = new mongooseSchema(
       default: "🏠",
     },
   },
-  { timeStamp: true },
+  { timestamps: true },
 );
 
-//Ensure owner is always in memebrs
-houseSchema.pre("save", function (next) {
+// Ensure owner is always in members
+houseSchema.pre("save", function () {
   if (!this.members.includes(this.owner)) {
     this.members.push(this.owner);
   }
-  next();
 });
 
 module.exports = mongoose.model("House", houseSchema);

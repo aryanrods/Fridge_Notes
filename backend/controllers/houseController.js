@@ -1,8 +1,7 @@
 const House = require("../models/House");
 const User = require("../models/User");
-const GroceryItem = require("../models/GroceryItem");
+const GroceryItem = require("../models/GroceryItem.js");
 const { nanoid } = require("nanoid");
-const { join } = require("path");
 
 // @desc Create a new house
 // @route POST/api/houses/create

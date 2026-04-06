@@ -7,6 +7,7 @@ const app = express();
 
 //Import Routes
 const authRoutes = require("./routes/authRoutes");
+const houseRoutes = require("./routes/houseRoutes");
 // Connect to MongoDb
 connectDB();
 
@@ -14,6 +15,7 @@ connectDB();
 app.use(express.json());
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/houses", houseRoutes);
 //Test route
 app.get("/", (req, res) => {
   res.send("API is running");

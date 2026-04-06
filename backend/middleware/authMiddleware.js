@@ -8,9 +8,9 @@ const protect = async (req, res, next) => {
 
     if (
       req.headers.authorization &&
-      req.headers.authorization.startsWIth("Bearer")
+      req.headers.authorization.startsWith("Bearer")
     ) {
-      token = req.headers.authorization.split("")[1];
+      token = req.headers.authorization.split(" ")[1];
     }
 
     if (!token) {
@@ -32,6 +32,8 @@ const protect = async (req, res, next) => {
         message: "Token is invalid or user no longer exists.",
       });
     }
+    req.user = user;
+    next();
   } catch (error) {
     if (error.name === "TokenExpiredError") {
       return res.status(401).json({
