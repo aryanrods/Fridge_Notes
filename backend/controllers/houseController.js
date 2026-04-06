@@ -53,6 +53,7 @@ const createHouse = async (req, res, next) => {
 const joinHouse = async (req, res, next) => {
   try {
     const { inviteCode } = req.body;
+    console.log(req.body);
 
     if (!inviteCode) {
       return res.status(400).json({
