@@ -33,3 +33,23 @@ const getItems = async (req, res, next) => {
 // @desc   Add a grocery item
 // @route  POST /api/items
 // @access Private (house member)
+const addItem = async (req, res, next) => {
+  try {
+    const { houseId, name, quantity, category, notes, priority } = req.body;
+    if (!houseId || !name) {
+      return res.status(400).json({
+        success: false,
+        message: "House ID and item name are required",
+      });
+
+      //Verify user is a member
+      const house = await House.findById(houseId);
+      if (!house) {
+        return res
+          .status(404)
+          .json({ success: false, message: "House not found." });
+      }
+      const isMember = house.members.some((m) => m.toString() === req.user._id);
+    }
+  } catch (error) {}
+};
