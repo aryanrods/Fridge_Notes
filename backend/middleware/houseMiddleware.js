@@ -22,6 +22,7 @@ const isMember = async (req, res, next) => {
         message: "Access denied. You are not member of this house.",
       });
     }
+    req.house = house;
     next();
   } catch (error) {
     next(error);
@@ -43,6 +44,20 @@ const isOwner = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+//Get item middleware
+
+const getItem = async (req, res, next) => {
+  try {
+    const item = await GroceryItem.findById(req.params.id);
+    if (!item) {
+      return res.status(404).json({
+        success: false,
+        message: "item not found",
+      });
+    }
+  } catch (error) {}
 };
 
 module.exports = { isMember, isOwner };
