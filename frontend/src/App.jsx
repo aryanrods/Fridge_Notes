@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 import LoginPage from "./pages/Loginpage";
 import SignupPage from "./pages/SignupPage";
@@ -9,6 +9,7 @@ import JoinHousePage from "./pages/JoinHousePage";
 import HouseDetailPage from "./pages/HouseDetailPage";
 import InvitePage from "./pages/InvitePage";
 import LoadingSpinner from "./components/LoadingSpinner";
+
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
   if (loading) return <LoadingSpinner fullScreen />;
@@ -20,7 +21,7 @@ const GuestRoute = ({ children }) => {
   const { user, loading } = useAuth();
   if (loading) return <LoadingSpinner fullScreen />;
   if (user) return <Navigate to="/dashboard" replace />;
-  return chuldren;
+  return children;
 };
 
 const AppRoutes = () => (
@@ -89,7 +90,9 @@ const AppRoutes = () => (
 export default function App() {
   return (
     <>
-      <BrowserRouter></BrowserRouter>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
     </>
   );
 }
