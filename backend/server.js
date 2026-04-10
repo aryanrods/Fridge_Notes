@@ -1,13 +1,21 @@
 require("dotenv").config();
 const express = require("express");
+const { initSocket } = require("./sockets/socketManager");
+const http = require("http");
 
 const connectDB = require("./config/db");
-
-const app = express();
 
 //Import Routes
 const authRoutes = require("./routes/authRoutes");
 const houseRoutes = require("./routes/houseRoutes");
+const itemRoutes = require("./routes/itemRoutes");
+
+const app = express();
+const server = http.createServer(app);
+
+//Initialize Socket.io
+initSocket(server);
+
 // Connect to MongoDb
 connectDB();
 
@@ -16,6 +24,7 @@ app.use(express.json());
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/houses", houseRoutes);
+app.use("/api/items", itemRoutes);
 //Test route
 app.get("/", (req, res) => {
   res.send("API is running");

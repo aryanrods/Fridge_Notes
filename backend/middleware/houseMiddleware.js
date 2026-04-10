@@ -1,9 +1,18 @@
 const House = require("../models/House");
+const GroceryItem = require("../models/GroceryItem");
 
 // Verify user is a member of the house
 const isMember = async (req, res, next) => {
   try {
-    const houseId = req.params.houseId || req.params.id || req.body.houseId;
+    const houseId = req.item?.houseId || req.params.houseId;
+
+    if (!houseId) {
+      return res.status(400).json({
+        success: false,
+        message: "House ID not found",
+      });
+    }
+
     const house = await House.findById(houseId);
 
     if (!house) {
@@ -57,7 +66,12 @@ const getItem = async (req, res, next) => {
         message: "item not found",
       });
     }
-  } catch (error) {}
+    req.item = item;
+    req.houseId = item.houseId;
+    next();
+  } catch (error) {
+    next(error);
+  }
 };
 
-module.exports = { isMember, isOwner };
+module.exports = { isMember, isOwner, getItem };

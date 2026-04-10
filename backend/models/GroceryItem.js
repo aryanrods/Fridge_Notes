@@ -79,7 +79,6 @@ groceryItemSchema.pre("save", function (next) {
     this.purchasedAt = null;
     this.purchasedBy = null;
   }
-  next();
 });
 
 module.exports = mongoose.model("GroceryItem", groceryItemSchema);

@@ -1,6 +1,10 @@
 const GroceryItem = require("../models/GroceryItem");
 const { getIO } = require("../sockets/socketManager");
 
+// @desc   Get all grocery items for a house
+// @route  GET /api/items/:houseId
+// @access Private (members only)
+
 // ✅ Get items
 const getItems = async (req, res, next) => {
   try {
@@ -22,6 +26,9 @@ const getItems = async (req, res, next) => {
     next(err);
   }
 };
+// @desc   Add a grocery item
+// @route  POST /api/items
+// @access Private (house member)
 
 // ✅ Add item
 const addItem = async (req, res, next) => {
@@ -59,6 +66,9 @@ const addItem = async (req, res, next) => {
   }
 };
 
+// @desc   Update a grocery item
+// @route  PUT /api/items/:id
+// @access Private (house member)
 // ✅ Update item
 const updateItem = async (req, res, next) => {
   try {
@@ -88,6 +98,10 @@ const updateItem = async (req, res, next) => {
   }
 };
 
+// @desc   Toggle purchased status
+// @route  PATCH /api/items/:id/purchased
+// @access Private (house member)
+
 // ✅ Toggle purchased
 const togglePurchased = async (req, res, next) => {
   try {
@@ -112,6 +126,10 @@ const togglePurchased = async (req, res, next) => {
     next(err);
   }
 };
+
+//@desc Delete item
+//@route /api/items/:id
+// @access Private(house member)
 
 // ✅ Delete item
 const deleteItem = async (req, res, next) => {
