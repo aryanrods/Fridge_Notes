@@ -159,6 +159,9 @@ const deleteItem = async (req, res, next) => {
   }
 };
 
+//@desc Clear the purchased items
+//@route /api/items/:houseId/clear-purchased
+// @access Private(house member)
 // ✅ Clear purchased
 const clearPurchased = async (req, res, next) => {
   try {
