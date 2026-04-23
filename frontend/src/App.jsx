@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import { AuthProvider, useAuth } from "./context/AuthContext";
 
-import LoginPage from "./pages/Loginpage";
+import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import DashboardPage from "./pages/DashboardPage";
 import CreateHousePage from "./pages/CreateHousePage";
@@ -89,10 +90,31 @@ const AppRoutes = () => (
 
 export default function App() {
   return (
-    <>
-      <BrowserRouter>
+    <BrowserRouter>
+      <AuthProvider>
         <AppRoutes />
-      </BrowserRouter>
-    </>
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            duration: 3500,
+            style: {
+              fontFamily: "DM Sans, sans-serif",
+              fontSize: "14px",
+              borderRadius: "12px",
+              border: "1px solid #E7E2D8",
+              boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
+              background: "#FEFDF8",
+              color: "#1C1917",
+            },
+            success: {
+              iconTheme: { primary: "#5C8A48", secondary: "#fff" },
+            },
+            error: {
+              iconTheme: { primary: "#C07355", secondary: "#fff" },
+            },
+          }}
+        />
+      </AuthProvider>
+    </BrowserRouter>
   );
 }

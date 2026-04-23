@@ -5,7 +5,7 @@ const api = axios.create({
   withCredentials: true,
 });
 
-//Attach JWT token to every token
+// Attach JWT token to every request
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("fn_token");
@@ -17,27 +17,27 @@ api.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
-//Handle 401 globally
-
+// Handle 401 globally
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem("fn_token");
+      localStorage.removeItem("fn_user");
       window.location.href = "/login";
     }
     return Promise.reject(error);
   },
 );
 
-//Auth
+// ---- Auth ----
 export const authAPI = {
   signup: (data) => api.post("/auth/signup", data),
   login: (data) => api.post("/auth/login", data),
   getMe: () => api.get("/auth/me"),
 };
 
-//Houses
+// ---- Houses ----
 export const houseAPI = {
   create: (data) => api.post("/houses/create", data),
   join: (data) => api.post("/houses/join", data),
@@ -47,11 +47,10 @@ export const houseAPI = {
   leave: (id) => api.delete(`/houses/${id}/leave`),
 };
 
-//Grocery Item
-
-export const itemApi = {
+// ---- Grocery Items ----
+export const itemAPI = {
   getByHouse: (houseId, params) => api.get(`/items/${houseId}`, { params }),
-  add: (data) => api.post(`/items/${houseId}`, data),
+  add: (data) => api.post("/items", data),
   update: (id, data) => api.put(`/items/${id}`, data),
   togglePurchased: (id) => api.patch(`/items/${id}/purchased`),
   delete: (id) => api.delete(`/items/${id}`),

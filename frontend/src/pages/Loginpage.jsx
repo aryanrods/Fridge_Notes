@@ -100,6 +100,7 @@ export default function LoginPage() {
           </div>
         </div>
 
+        {/* Demo hint */}
         <div className="mt-4 text-center">
           <p className="text-xs text-stone-400 font-body">
             🛒 Collaborate on grocery lists with your household

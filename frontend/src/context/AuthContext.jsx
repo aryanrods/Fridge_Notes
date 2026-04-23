@@ -45,10 +45,10 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem("fn_token");
     setUser(null);
-    disconnectSocket;
+    disconnectSocket();
   };
 
-  const UpdateUser = (updates) => {
+  const updateUser = (updates) => {
     setUser((prev) => ({ ...prev, ...updates }));
   };
 
