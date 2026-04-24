@@ -50,7 +50,7 @@ export const houseAPI = {
 // ---- Grocery Items ----
 export const itemAPI = {
   getByHouse: (houseId, params) => api.get(`/items/${houseId}`, { params }),
-  add: (data) => api.post("/items", data),
+  add: (houseId, data) => api.post(`/items/${houseId}`, data),
   update: (id, data) => api.put(`/items/${id}`, data),
   togglePurchased: (id) => api.patch(`/items/${id}/purchased`),
   delete: (id) => api.delete(`/items/${id}`),

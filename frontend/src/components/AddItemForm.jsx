@@ -33,7 +33,7 @@ export default function AddItemForm({ houseId, onAdded }) {
 
     setLoading(true);
     try {
-      const { data } = await itemAPI.add({ ...form, houseId });
+      const { data } = await itemAPI.add(houseId, form);
       onAdded(data.item);
       setForm(defaultForm);
       setExpanded(false);
