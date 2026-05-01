@@ -18,12 +18,15 @@ across all connected devices.
 
 <h2>🖥️ Preview</h2>
 <ul>
-  <li>Dashboard</li>
-  <img width="1436" height="754" alt="Screenshot 2026-05-01 at 3 26 06 PM" src="https://github.com/user-attachments/assets/4288b7f9-d549-4db3-a0d6-eac089803f67" />
+
+
+
 <img width="1436" height="755" alt="Screenshot 2026-05-01 at 3 25 27 PM" src="https://github.com/user-attachments/assets/f732f28f-9d53-482e-8fc8-c919ca639601" />
 
   <li>Grocery List (Real-Time Updates)</li>
+    <img width="1436" height="754" alt="Screenshot 2026-05-01 at 3 26 06 PM" src="https://github.com/user-attachments/assets/4288b7f9-d549-4db3-a0d6-eac089803f67" />
   <li>Add / Manage Items</li>
+    <li>Dashboard</li><img width="865" height="652" alt="Screenshot 2026-05-01 at 3 27 16 PM" src="https://github.com/user-attachments/assets/0c07524c-b5aa-431e-a419-bca6479bf605" />
 </ul>
 
 <hr/>
