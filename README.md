@@ -18,6 +18,9 @@ across all connected devices.
 
 <h2>🖥️ Preview</h2>
 <ul>
+Click on the link to preview the webstie : </br>
+https://fridge-notes-2.onrender.com/dashboard
+
 
 
 
