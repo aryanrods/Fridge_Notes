@@ -24,7 +24,7 @@ connectDB();
 app.use(express.json());
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: "https://fridge-notes-2.onrender.com",
     credentials: true,
   }),
 );
